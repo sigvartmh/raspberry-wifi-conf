@@ -132,6 +132,10 @@ module.exports = function() {
         // If the hw_addr matches the ap_addr
         // and the ap_ssid matches "rpi-config-ap"
         // then we are in AP mode
+
+	if(info["ap_addr"] !== "undefined"){
+		info["ap_addr"] = "derp"
+	}
         var is_ap  =
             info["hw_addr"].toLowerCase() == info["ap_addr"].toLowerCase() &&
             info["ap_ssid"] == config.access_point.ssid;
