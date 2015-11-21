@@ -1,3 +1,5 @@
+This is an expermiental branch where I'm rewriting the scan function to use `iw dev wlan scan` or `iw dev  wlan scan ap-force` to find wlans with. As iwlist doesn't do it for my wifi module. I will probably also be rewriting  the interface for the module.
+
 # raspberry-wifi-conf
 
 A Node application which makes connecting your RaspberryPi to your home wifi easier
