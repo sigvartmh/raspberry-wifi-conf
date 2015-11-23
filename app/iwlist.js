@@ -1,4 +1,5 @@
 var exec    = require("child_process").exec;
+var path       = require("path");
 
 /*****************************************************************************\
     Return a function which is responsible for using "iwlist scan" to figure
@@ -18,9 +19,10 @@ module.exports = function(cmd_options, callback) {
         "encrypted":       /Encryption key:(on)/,
         "open":            /Encryption key:(off)/,
     };
-
-    exec("sudo iw dev wlan0 scan ap-force", function(error, stdout, stderr) {
+    var rules = path.join(__dirname, "wifi_scan.awk");
+    exec("iw dev wlp12s0 scan ap-force | gawk -f "+rules, function(error, stdout, stderr) {
         // Handle errors from running "iwlist scan"
+        console.log("iwscan called");
         if (error) {
             return callback(error, output)
         }
@@ -58,42 +60,23 @@ module.exports = function(cmd_options, callback) {
             }
         }
 
-        // Parse the result, build return object
         lines = stdout.split("\n");
-        for (var idx in lines) {
-            line = lines[idx].trim();
-
-            // Detect new interface
-            var re_new_interface = line.match(/([^\s]+)\s+Scan completed :/);
-            if (re_new_interface) {
-                console.log("Found new interface: " + re_new_interface[1]);
-                append_previous_interface();
-                interface_entry = {
-                    "interface":    re_new_interface[1],
-                    "scan_results": []
-                };
-                continue;
-            }
-
-            // Detect new cell
-            var re_new_cell = line.match(/Cell ([0-9]+) - Address: (.*)/);
-            if (re_new_cell) {
-                append_previous_cell();
-                current_cell = {
-                    "cell_id": parseInt(re_new_cell[1]),
-                    "address": re_new_cell[2],
-                };
-                continue;
-            }
-
-            // Handle other fields we want to extract
-            for (var key in fields_to_extract) {
-                var match = line.match(fields_to_extract[key]);
-                if (match) {
-                    current_cell[key] = match[1];
+        for(var t in lines){
+            //console.log(lines[t]);
+            try{
+                if(lines[t] !==  ''){
+                    var test = JSON.parse(lines[t]);
+                    //console.log(test);
+                    output.push(test);
                 }
             }
+            catch(e){
+                console.log(e);
+            }
+            //console.log(test);
+            //console.log(test);
         }
+        return callback(null, output);
 
         // Add the last item we tracked
         append_previous_interface();

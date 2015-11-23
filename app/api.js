@@ -10,9 +10,11 @@ var path       = require("path"),
 // message to the caller
 function log_error_send_success_with(success_obj, error, response) {
     if (error) {
+        console.log(success_obj);
         console.log("ERROR: " + error);
         response.send({ status: "ERROR", error: error });
     } else {
+        console.log(success_obj);
         success_obj = success_obj || {};
         success_obj["status"] = "SUCCESS";
         response.send(success_obj);
@@ -45,7 +47,12 @@ module.exports = function(wifi_manager, callback) {
     app.get("/api/rescan_wifi", function(request, response) {
         console.log("Server got /rescan_wifi");
         iwlist(function(error, result) {
-            log_error_send_success_with(result[0], error, response);
+            try{
+                console.log(result);
+                log_error_send_success_with(result, error, response);
+            }catch(err){
+                console.log(err);
+            }
         });
     });
 

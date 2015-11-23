@@ -7,7 +7,7 @@ var exec    = require("child_process").exec;
 "encrypted": /Encryption key:(on)/,
 "open": /Encryption key:(off)/,
 };
-    exec("iw dev wlan0 scan | gawk -f wifi_scan.awk", function(error, stdout, stderr) {
+    exec("iw dev wlp12s0 scan | gawk -f wifi_scan.awk", function(error, stdout, stderr) {
         // Handle errors from running "iwlist scan"
         if (error) {
             //return callback(error, output)

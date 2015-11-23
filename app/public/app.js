@@ -28,7 +28,7 @@ app.controller("AppController", ["PiManager", "$scope", "$location", "$timeout",
 
         // Scope filter definitions
         $scope.orderScanResults = function(cell) {
-            return parseInt(cell.signal_strength);
+            return parseInt(cell.signal);
         }
 
         $scope.foo = function() { console.log("foo"); }
@@ -42,8 +42,9 @@ app.controller("AppController", ["PiManager", "$scope", "$location", "$timeout",
             PiManager.rescan_wifi().then(function(response) {
                 console.log(response.data);
                 if (response.data.status == "SUCCESS") {
-                    $scope.scan_results = response.data.scan_results;
+                    $scope.scan_results = response.data;
                 }
+                $scope.scan_results = response.data;
                 $scope.scan_running = false;
             });
         }

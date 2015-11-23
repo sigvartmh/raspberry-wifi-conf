@@ -2,43 +2,77 @@
 <html lang="en" ng-app="RpiWifiConfig">
 
 <head>
-    <title>Rpi Wifi Config</title>
+    <title>XeThru Wifi Config</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1.0, user-scalable=1">
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-
     <link rel="stylesheet" href="/external/font-awesome/css/font-awesome.min.css" >
+    <link type="text/css" rel="stylesheet" href="/external/Materialize/dist/css/materialize.min.css"  media="screen,projection"/>
     <link rel="stylesheet" href="/app.css">
 </head>
 
+<body ng-controller = "AppController" ng-keyup      = "$event.keyCode == 27 ? change_selection(null) : ''">
+<nav class="xethru z-depth-0"  role="navigation">
+<div class="nav-wrapper container xethru">
+  <div class="row">
+      <div class="col s2"><i class = "fa fa-wifi"></i></div>
+      <div class="col s7">Select a Wifi</div>
+      <div class="col s1 xethru"> <div class="spin_container"><a href = "#rescan" ng-click = "rescan()" ng-class = "{ 'active': scan_running }">
+            <i class = "fa fa-refresh"
+               ng-class = "{ 'fa-spin': scan_running }"></i></a></div></div>
+   </div>
+</div>
 
-<body ng-controller = "AppController"
-      ng-keyup      = "$event.keyCode == 27 ? change_selection(null) : ''">
-
-    <div class = "page-header">
+</nav>
+<div class="container">
+<div class="col s12">
+    <ul class="collapsible xethru_container z-depth-0" data-collapsible="expandable">
+    <li ng-repeat = "cell in scan_results | orderBy:orderScanResults:true"
+                 ng-class = "{ selected: (cell.mac === selected_cell.mac) }"
+                 > <!--ng-click = "change_selection(cell)"-->
+      <div class="collapsible-header">{{ cell.ssid }}</div>
+      <div class="collapsible-body"><p>
+        <div class="col s10 offset-s2">mac: {{ cell.mac }}</div>
+        <div class="col s10 offset-s2"><input type = 'password' placeholder = 'Password' ng-model = 'passcode' /></div></p>
+      </div>
+    </li>
+</div>
+</div>
+<!--
+    <div class = "header">
+       <a class="logo" href="/">
+        </a>
         <i class = "fa fa-wifi"></i> Choose a Wifi Ap
         <a href = "#" ng-click = "rescan()" ng-class = "{ 'active': scan_running }">
             <i class = "fa fa-refresh"
                ng-class = "{ 'fa-spin': scan_running }"></i>
         </a>
     </div>
-
+-->
+<!--
     <div class = "page-content">
         <div class = "scan-results-container">
-
             <div class = "scan-result"
                  ng-repeat = "cell in scan_results | orderBy:orderScanResults:true"
-                 ng-class = "{ selected: (cell.address == selected_cell.address) }"
+                 ng-class = "{ selected: (cell.mac === selected_cell.mac) }"
                  ng-click = "change_selection(cell)">
                 <div class = "secure" ng-if = "cell.encrypted"><i class = "fa fa-key"></i></div>
+                <ul>
+                    <li><a href="">{{ cell.ssid }}</a>
+                    <ul>
+                        <li>{{ cell.mac }}</li>
+                        <li><input type = 'password' placeholder = 'Passcode...' ng-model = 'passcode' /></li>
+                    </ul>
+                    </li>
+                    -->
+                <!--
                 <div class = "ssid">{{ cell.ssid }}</div>
-                <div class = "signal_stength">{{ cell.signal_strength }}</div>
+                <div class = "signal_stength">{{ cell.signal }}</div>
+                </ul>
             </div>
 
         </div>
     </div>
-
+-->
     <rwc-password-entry
         visible     = "show_passcode_entry_field"
         passcode    = "network_passcode"
@@ -47,6 +81,8 @@
         ng-keydown  = "{esc: 'close_password_entry()'}" />
 
     <!-- Scripts load last -->
+    <script type="text/javascript" src="external/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/external/Materialize/dist/js/materialize.min.js"></script>
     <script src="/external/angularjs/angular.min.js"></script>
     <script src="/app.js"></script>
 

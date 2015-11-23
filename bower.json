@@ -14,7 +14,8 @@
   "dependencies": {
     "angularjs": "~1.3.13",
     "font-awesome": "~4.3.0",
-    "roboto-fontface": "~0.4.3"
+    "roboto-fontface": "~0.4.3",
+    "Materialize": "materialize#~0.97.3"
   },
   "chloe": [
     "# Chloe is a simple `Go` binary which can prune un-needed files   ",
