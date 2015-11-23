@@ -1,0 +1,59 @@
+.xethru{
+    color: #fff;
+    font-size: 20pt;
+    background-color: #291053;
+}
+
+.xethru_container{
+    color: #291053;
+    font-size: 15pt;
+    font-family: 'Roboto Thin', sans-serif;
+    margin: 0px;
+}
+.xethru_btn{
+    color: #fff;
+    font-size: 10pt;
+    font-family: 'Roboto Thin', sans-serif;
+    background-color: #291053;
+}
+.details{
+	font-size: 10pt;
+	font-family: 'Roboto Thin', sans-serif;
+}
+
+.xethru_btn:hover{
+    color: #fff;
+    font-size: 10pt;
+    font-family: 'Roboto Thin', sans-serif;
+    background-color: #392073;
+}
+
+.marg0  {
+	margin: 0px;
+}
+
+.rotate {
+	transition: all 0.5s ease-in-out;
+    animation-duration: 1.5s;
+    animation-name: spin;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.spin_container{
+    width: 15pt;
+    height: 15pt; 
+    color: #291053;
+    font-size: 15pt;
+}
+
+/* Standard syntax */
+@keyframes spin {
+    0%   {transform: rotateZ(360deg);}
+    100% {transform: rotateZ(0deg);}
+}
+
+input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly]), input[type=email]:focus:not([readonly]), input[type=url]:focus:not([readonly]), input[type=time]:focus:not([readonly]), input[type=date]:focus:not([readonly]), input[type=datetime-local]:focus:not([readonly]), input[type=tel]:focus:not([readonly]), input[type=number]:focus:not([readonly]), input[type=search]:focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]) {
+    border-bottom: 1px solid #291053;
+    box-shadow: 0 1px 0 0 #291053;
+}
