@@ -252,23 +252,7 @@
     margin-top: 15px;
 }
 
-.rwc-password-entry-container .box .btn {
-    width: 130px;
-    height: 40px; line-height: 40px;
-    text-align: center;
 
-    border: 2px solid #000000;
-
-    position: absolute;
-
-    -webkit-transition: all 0.3s ease;
-    -moz-transition:    all 0.3s ease;
-    -ms-transition:     all 0.3s ease;
-    -o-transition:      all 0.3s ease;
-    transition:         all 0.3s ease;
-
-    cursor: pointer;
-}
 .btn-cancel {
     background: #881111;
     top: 90px; left: 20px;
