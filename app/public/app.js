@@ -55,13 +55,15 @@ app.controller("AppController", ["PiManager", "$scope", "$location", "$timeout",
             $scope.show_passcode_entry_field = (cell != null) ? true : false;
         }
 
-        $scope.submit_selection = function() {
+        $scope.submit_selection = function(password) {
             if (!$scope.selected_cell) return;
 
             var wifi_info = {
                 wifi_ssid:      $scope.selected_cell["ssid"],
-                wifi_passcode:  $scope.network_passcode,
+                wifi_passcode:  password,
             };
+
+            console.log(wifi_info)
 
             PiManager.enable_wifi(wifi_info).then(function(response) {
                 console.log(response.data);
@@ -93,36 +95,3 @@ app.service("PiManager", ["$http",
     }]
 
 );
-
-/*****************************************************************************\
-    Directive to show / hide / clear the password prompt
-\*****************************************************************************/
-app.directive("rwcPasswordEntry", function($timeout) {
-    return {
-        restrict: "E",
-
-        scope: {
-            visible:  "=",
-            passcode: "=",
-            reset:    "&",
-            submit:   "&",
-        },
-
-        replace: true,          // Use provided template (as opposed to static
-                                // content that the modal scope might define in the
-                                // DOM)
-        template: [
-            "<div class='rwc-password-entry-container' ng-class='{\"hide-me\": !visible}'>",
-            "    <div class='box'>",
-            "         <input type = 'password' placeholder = 'Passcode...' ng-model = 'passcode' />",
-            "         <div class = 'btn btn-cancel' ng-click = 'reset(null)'>Cancel</div>",
-            "         <div class = 'btn btn-ok' ng-click = 'submit()'>Submit</div>",
-            "    </div>",
-            "</div>"
-        ].join("\n"),
-
-        // Link function to bind modal to the app
-        link: function(scope, element, attributes) {
-        },
-    };
-});
