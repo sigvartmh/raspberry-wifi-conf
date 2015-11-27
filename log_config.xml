@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <settings name="XTmodule">
+        <logtime>60</logtime>
+    </settings>
+    <settings name="PIcamera">
+        <logtime>20</logtime>
+    </settings>
+</config>
